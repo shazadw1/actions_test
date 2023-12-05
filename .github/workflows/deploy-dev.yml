@@ -23,6 +23,6 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
-          cd /opt/odoo16/custom_addons/actions
+          cd /opt/odoo16/custom_addons/Actions
           git pull origin main
           git status
