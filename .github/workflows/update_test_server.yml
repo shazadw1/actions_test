@@ -8,7 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
     - name: Deploy
       uses: appleboy/ssh-action@master
@@ -19,5 +18,5 @@ jobs:
         port: 22
         script: |
 
-          # Run the restart_odoo.sh script
+          # Run the git update script to update the repo
           bash /opt/install_odoo/git_update.sh Actions
