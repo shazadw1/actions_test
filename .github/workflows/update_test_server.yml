@@ -12,7 +12,6 @@ jobs:
     steps:
     - name: Debugging
       run: |
-        env
         echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
 
     - name: Deploy
@@ -23,5 +22,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
+          echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}"
           repo_name=$(echo "$GITHUB_REPOSITORY" | awk -F '/' '{print $2}')
+          echo "Repository Name: $repo_name"
           bash /opt/install_odoo/git_update.sh $repo_name
