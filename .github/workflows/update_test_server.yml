@@ -12,6 +12,7 @@ jobs:
     steps:
     - name: Debugging
       run: |
+        env
         echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
 
     - name: Deploy
