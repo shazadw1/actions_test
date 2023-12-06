@@ -22,10 +22,9 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
-          # Extract the repository owner and name
-          IFS='/' read -r -a repo_parts <<< "$GITHUB_REPOSITORY"
-          repo_owner="${repo_parts[0]}"
-          repo_name="${repo_parts[1]}"
+          # Extract the repository owner and name using GITHUB_ACTOR
+          repo_owner="${GITHUB_ACTOR}"
+          repo_name=$(basename "$GITHUB_REPOSITORY")
           
           echo "Repository Owner: $repo_owner"
           echo "Repository Name: $repo_name"
