@@ -9,9 +9,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    env:
-      REPO_NAME: "Actions"  # Set the repository name here
-
     steps:
     - name: Deploy
       uses: appleboy/ssh-action@master
@@ -21,8 +18,6 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
-          # Use the environment variable in the script
-          export REPO_NAME="${REPO_NAME}"
 
           # Run the restart_odoo.sh script
-          bash /opt/install_odoo/restart_odoo.sh
+          bash /opt/install_odoo/git_update.sh Actions
