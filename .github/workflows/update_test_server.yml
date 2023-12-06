@@ -16,15 +16,15 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:       
-    - name: Deploy
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.T_HOSTNAME }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: 22
-        script: |
-          cd /opt/odoo16/custom_addons/Actions
-          git pull origin main
-          git status
-          bash /opt/install_odoo/restart_odoo.sh
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.T_HOSTNAME }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          repo_name: ${{ secrets.REPO_NAME }}
+          port: 22
+          debug: true  # Add this line
+          script: |
+            set -e  # Exit on error
+            bash -x /opt/install_odoo/restart_odoo.sh  # Enable debug for the script
