@@ -13,6 +13,7 @@ jobs:
     - name: Debugging
       run: |
         echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "GITHUB_WORKSPACE=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
 
     - name: Deploy
       uses: appleboy/ssh-action@master
@@ -22,11 +23,9 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
-          # Extract the repository owner and name using GITHUB_ACTOR
-          repo_owner="${GITHUB_ACTOR}"
-          repo_name=$(basename "$GITHUB_REPOSITORY")
+          # Extract the repository name using GITHUB_WORKSPACE
+          repo_name=$(basename "$GITHUB_WORKSPACE")
           
-          echo "Repository Owner: $repo_owner"
           echo "Repository Name: $repo_name"
           
           bash /opt/install_odoo/git_update.sh "$repo_name"
