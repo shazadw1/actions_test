@@ -24,8 +24,4 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
-          cd /opt/odoo16/custom_addons/Actions
-          git pull origin main
-          git status
-          sudo systemctl restart odoo16.service
-          sudo systemctl restart odoo17.service
+          bash /opt/install_odoo/git_update.sh
