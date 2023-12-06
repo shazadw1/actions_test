@@ -1,10 +1,11 @@
-name: Deploy
+name: Deploy to Test Server (T1)
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,7 +19,7 @@ jobs:
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.TEST_HOSTNAME }}
+        host: ${{ secrets.T_HOSTNAME }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: 22
@@ -26,5 +27,5 @@ jobs:
           cd /opt/odoo16/custom_addons/Actions
           git pull origin main
           git status
-          bash /opt/install_odoo/repo_update.sh
-
+          sudo systemctl restart odoo16.service
+          sudo systemctl restart odoo17.service
