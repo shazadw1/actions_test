@@ -1,10 +1,11 @@
-name: Deploy
+name: Deploy to Staging Server (S1)
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main ]
+    branches:
+      - staging-*
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,7 +19,7 @@ jobs:
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.DEV_HOSTNAME }}
+        host: ${{ secrets.S_HOSTNAME }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: 22
@@ -26,3 +27,5 @@ jobs:
           cd /opt/odoo16/custom_addons/Actions
           git pull origin main
           git status
+          sudo systemctl restart odoo16.service
+          sudo systemctl restart odoo17.service
