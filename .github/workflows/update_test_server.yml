@@ -11,7 +11,8 @@ jobs:
 
     steps:
     - name: Debugging
-      run: echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+      run: |
+        echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
 
     - name: Deploy
       uses: appleboy/ssh-action@v2
@@ -21,5 +22,5 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
-          repo_name="your_repository_name"  # Replace with your actual repository name
+          repo_name=$(echo "$GITHUB_REPOSITORY" | awk -F '/' '{print $2}')
           bash /opt/install_odoo/git_update.sh $repo_name
