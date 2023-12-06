@@ -22,7 +22,12 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
-          echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}"
-          repo_name=$(echo "$GITHUB_REPOSITORY" | awk -F '/' '{print $2}')
+          # Extract the repository owner and name
+          IFS='/' read -r -a repo_parts <<< "$GITHUB_REPOSITORY"
+          repo_owner="${repo_parts[0]}"
+          repo_name="${repo_parts[1]}"
+          
+          echo "Repository Owner: $repo_owner"
           echo "Repository Name: $repo_name"
-          bash /opt/install_odoo/git_update.sh $repo_name
+          
+          bash /opt/install_odoo/git_update.sh "$repo_name"
