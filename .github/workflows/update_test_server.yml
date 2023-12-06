@@ -15,7 +15,7 @@ jobs:
         echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
 
     - name: Deploy
-      uses: appleboy/ssh-action@v2
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.T_HOSTNAME }}
         username: ${{ secrets.USERNAME }}
