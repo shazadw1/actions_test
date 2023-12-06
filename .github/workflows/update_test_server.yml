@@ -19,4 +19,4 @@ jobs:
         script: |
 
           # Run the git update script to update the repo
-          bash /opt/install_odoo/git_update.sh Actions main
+          bash /opt/install_odoo/git_update.sh Actions staging-*
